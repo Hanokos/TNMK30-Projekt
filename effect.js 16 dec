@@ -1,0 +1,3 @@
+function inspectSet(setID) {
+    window.location.href = "../Lego%20hemsida/result.php?set=" + setID;
+}
