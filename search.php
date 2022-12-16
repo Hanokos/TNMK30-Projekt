@@ -3,7 +3,7 @@
     <meta charset="utf-8">
       
         <link rel="stylesheet" href="style.css">
-        <script src="script.js" defer></script>
+        <script src="effect.js" defer></script>
     </head>
     <body>
     <section id="header">
@@ -94,8 +94,6 @@ switch($_POST['selectedValue']){
     
     
             //Checks format of image
-    
-        
     
 }
     break;
@@ -230,17 +228,17 @@ $gifL = $row['has_largegif'];
         print("<p>$itemid </p>"); 
         print("<p>$set_name</p>");
         print("<p>$setid1</p>");
-        print("<img src= $imagesrc>") ;
+        print("<img src= $imagesrc  onclick='myFunction($setid1)'>"); 
 
 
         //Checks format of image
-
-    
 }
         // do Something for Alphabetical
+
     break;
     default:
         // Something went wrong or form has been tampered.
     }
+
 
 ?>

@@ -3,7 +3,7 @@
     <meta charset="utf-8">
       
         <link rel="stylesheet" href="style.css">
-        <script src="script.js" defer></script>
+        <script src="effect.js" defer></script>
     </head>
     <body>
     <section id="header">
@@ -25,17 +25,6 @@
 
   </section>
 
-  <form class= "form" action = "search.php" method ="POST" >
-        <select name="selectedValue">
-            <option value="Set-id">Set-id</option>
-            <option value="Set-name">Lgo</option>
-            <option value="Alphabetical">Set-name</option>
-        </select>
-            <label for="text"> Set id</label> <br>
-            <input type="text" name = "text" id = "text" required>
-        </div>
-        <input type="submit" value = "input">
-     </form> 
 </html>
 
 <?php
@@ -50,7 +39,7 @@ switch($_POST['selectedValue']){
     }
 
 
-    $SetID = 
+    
     $query = "SELECT * FROM sets WHERE SetID = '$SetID'";
     $result = mysqli_query($connection,  $query);
 
@@ -121,3 +110,4 @@ while   ($row =  mysqli_fetch_array($result)){
     ) ;
 }
 
+}
