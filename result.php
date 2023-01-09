@@ -10,7 +10,7 @@
     <div class="header container">
       <div class="nav-bar">
         <div class="brand">
-        <a href="index.html"><h1><span></span>block<span> browse</span></h1></a>
+          <a href="index.html"><img src="lego logo 4.0.png" alt="Logo"></a>
         </div>
         <div class="nav-list">
           <div class="hamburger"><div class="bar"></div></div>
@@ -22,6 +22,7 @@
         </div>
       </div>
     </div>
+  </section>
 
   </section>
 
@@ -29,85 +30,110 @@
 
 <?php
 
-switch($_POST['selectedValue']){
-    case 'Set-id':
-     
-    $connection = mysqli_connect("mysql.itn.liu.se", "lego", "", "lego");
+
+$connection = mysqli_connect("mysql.itn.liu.se", "lego", "", "lego");
+
  
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+
+if ($conn->connect_error) {
+
+    die("Connection failed: " . $conn->connect_error);
+
+}
 
 
-    
-    $query = "SELECT * FROM sets WHERE SetID = '$SetID'";
-    $result = mysqli_query($connection,  $query);
+
+$SetID = $_GET['set'];
+
+$query = "SELECT * FROM sets WHERE SetID = '$SetID'";
+
+$result = mysqli_query($connection,  $query);
 
 
-    if ($row   =  mysqli_fetch_array($result)){
-        $setname = $row['Setname'];
 
-        print("
-        <h3> parts included in set $SetID ($setname):</h3>
-        <table>
-           <tr>
-             <td> Quantity </td>
-             <td> Color </td>
-             <td> part name </td>
-             <td>Image </td>
-            
-           
-           
-            
-             
-           </tr>
-        </table>"
-    );
-}  
-
-$query = "SELECT inventory.Quantity, inventory.SetID , inventory.ItemID, parts.Partname, images.ItemID, images.ItemtypeID,images.ColorID,
-images.has_gif, images.has_jpg, images.has_largegif, images.has_largejpg, colors.Colorname FROM inventory, parts, colors, images WHERE 
+$info = "SELECT inventory.Quantity, inventory.SetID , inventory.ItemID, parts.Partname, images.ItemID, images.ItemtypeID,images.ColorID,
+images.has_gif, images.has_jpg, images.has_largegif, images.has_largejpg, colors.Colorname FROM inventory, parts, colors, images WHERE
 inventory.SetID =  '$SetID' AND parts.PartID = inventory.ItemID AND colors.ColorID = inventory.ColorID AND images.ItemID = inventory.ItemID
 AND colors.ColorID = images.ColorID ORDER BY inventory.Quantity DESC";
 
-$result = mysqli_query($connection, $query);
 
+
+$result = mysqli_query($connection, $info);
+
+if(1 == 1){
+  echo("
+  <h3 class='mycss'> parts included in set $SetID ($setname):</h3>
+<table>
+   <tr>
+     <td>Image </td>
+     <td> part name </td>
+     <td> Color </td>
+     <td> Quantity </td>
+   </tr>
+</table>"
+
+);}
 
 while   ($row =  mysqli_fetch_array($result)){
 
-    $invpart = $row['Partname'];
-    $invqual = $row['Quantity'];
-    $colorsname = $row['Colorname'];
-    $itemid = $row['ItemID'];
-    $itemtype = $row['ItemtypeID'];
-    $colorid = $row['ColorID'];
-    $gif = $row['has_gif'];
-    $jpg = $row['has_jpg'];
-    $imagesrc = "";
-    $file = "";
 
-    if ($jpg){
-        $imagesrc = "http://www.itn.liu.se/~stegu76/img.bricklink.com/$itemtype/$colorid/$itemid.jpg";
 
-    }
-    else if ($gif){
-        $imagesrc = "http://www.itn.liu.se/~stegu76/img.bricklink.com/$itemtype/$colorid/$itemid.gif";
-     
-    }
+$invpart = $row['Partname'];
 
-    print (
-     "<table >
-         <tr>
-            
-            <td> $invqual </td>
-            <td> $colorsname </td>
-            <td> $invpart </td>
-            <td> <img src= $imagesrc> </td>
-            
-          
-         </tr>
-        <table>"
-    ) ;
-}
+$invqual = $row['Quantity'];
+
+$colorsname = $row['Colorname'];
+
+$itemid = $row['ItemID'];
+
+$itemtype = $row['ItemtypeID'];
+
+$colorid = $row['ColorID'];
+
+$gif = $row['has_gif'];
+
+$jpg = $row['has_jpg'];
+
+$imagesrc = "";
+
+
+
+
+
+if ($jpg){
+
+    $imagesrc = "http://www.itn.liu.se/~stegu76/img.bricklink.com/$itemtype/$colorid/$itemid.jpg";
+
+    
+
 
 }
+
+else if ($gif){
+
+    $imagesrc = "http://www.itn.liu.se/~stegu76/img.bricklink.com/$itemtype/$colorid/$itemid.gif";
+
+
+}
+
+
+
+
+
+print (
+
+ "<table class = 'sheesh' >
+     <tr>
+        <td> <img src= $imagesrc> </td>
+        <td> $invpart </td>
+        <td> $colorsname </td>
+        <td> $invqual </td>
+       
+     </tr>
+    <table>"
+
+) ;
+
+}
+
+
