@@ -2,7 +2,7 @@
     <head>
     <meta charset="utf-8">
       
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="effect.js" defer></script>
     </head>
     <body>
@@ -10,7 +10,7 @@
     <div class="header container">
       <div class="nav-bar">
         <div class="brand">
-          <a href="index.html"><img src="lego logo 4.0.png" alt="Logo"></a>
+          <a href="index.html"><img src="bilder/lego logo 4.0.png" alt="Logo" id ="logo"></a>
         </div>
         <div class="nav-list">
           <div class="hamburger"><div class="bar"></div></div>
@@ -24,19 +24,29 @@
     </div>
   </section>
 
-  </section>
 
+  
   <form class= "form" action = "search.php" method ="POST" >
+  <h1>SEARCH</h1>
         <select name="selectedValue">
             <option value="Set-id">Set-id</option>
             
             <option value="Set-name">Set-name</option>
         </select>
-            <label for="text"> Set id</label> <br>
-            <input type="text" name = "text" id = "text" required>
+            <label for="text"> [Options]</label> <br>
+         
+            <input type="text" name = "text" placeholder = "Write the input here" id = "text" required>
         </div>
-        <input type="submit" value = "input">
+        
+        <input type="submit" value = "Submit">
+        
      </form> 
+     <div class="card">
+        
+        <span class = "info"><i class="fa fa-info-circle"></i></span>
+        <h1 id ="textbox">Block Broswe</h1>
+        <p> Du är två val möjligheter. Antigen söker på set-id med ett lego sets set ID för hitta ett specifik set. Eller söker på andra valet Set-namn med ett set namn</p>
+        </div>
 </html>
 
 <?php
@@ -86,16 +96,16 @@ switch($_POST['selectedValue']){
                 $imagesrc = "https://weber.itn.liu.se/~stegu76/img.bricklink.com/SL/375-2.jpg"; 
     
             }
-            
-            print("<p>$itemid </p>"); 
-            print("<p>$set_name</p>");
-            print("<p>$setid1</p>");
-            print("<img src= $imagesrc  id='$setid1' onclick='inspectSet(this.id)'>");  // Hans fixar det
-    
-    
-    
-            //Checks format of image
-    
+         print(
+         "<div class='setidWrapper'>
+            <div >
+             <img src= $imagesrc class = 'idimg' onclick='inspectSet(this.id)'  id='$setid1' >
+             <p>$itemid </p>
+             <p>$set_name</p>
+             <h1>Set ID: $setid1</h1>
+            </div>
+         </div>"); 
+ 
 }
     break;
     case 'Set-name':
@@ -150,19 +160,20 @@ $gifL = $row['has_largegif'];
 
         }
         
-        print("<p>$itemid </p>"); 
-        print("<p>$set_name</p>");
-        print("<p>$setid1</p>");
-        print("<img src= $imagesrc  id='$setid1' onclick='inspectSet(this.id)'>");  // Hans fixar det
-
-        //Checks format of image
+              
+print(
+"<div class='setWrapper'>
+ <div ><img src= $imagesrc class = 'nameimg' onclick='inspectSet(this.id)'  id='$setid1' >
+ <p>$itemid </p>
+ <p>$set_name</p>
+ <p>Set ID: $setid1</p>
+ </div>
+ </div>"); 
 }
-        // do Something for Alphabetical
-
     break;
     default:
         // Something went wrong or form has been tampered.
-    }
+     }
 
 
 ?>
